@@ -1,0 +1,311 @@
+<div class="row justify-content-around my-3">
+    <div class="wrapper col-sm-12 col-md-10 col-lg-10 mx-auto table-responsive">
+        <form *ngIf="debtor">
+
+            <!-- Person details -->
+            <fieldset [hidden]="debtor.company_name">
+                <!-- Personal section -->
+                <legend>Personal Information</legend>
+                <div class="form-group row">
+                    <div class="col-sm-12 col-md-6">
+                        <!-- SSN -->
+                        <div class="form-group">
+                            <label for="ssn">Social Security Number</label>
+                            <div class="input-group mb-1">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="ssn-addon">
+                                        <i class="fa fa-id-card" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <input type="text" name="ssn" class="form-control" id="ssn" [(ngModel)]="debtor.id"
+                                    placeholder="Social Security Number" autofocus required aria-describedby="ssn-addon"
+                                    readonly />
+                            </div>
+                        </div>
+
+                        <!-- First name -->
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <div class="input-group mb-1">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="firstName-addon">
+                                        <i class="fa fa-font" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <input type="text" name="firstName" class="form-control" id="firstName" [(ngModel)]="debtor.first_name"
+                                    required placeholder="First Name" aria-describedby="firstName-addon" readonly />
+                            </div>
+                        </div>
+
+                        <!-- E-mail address -->
+                        <div class="form-group">
+                            <label for="email">E-mail address</label>
+                            <div class="input-group mb-1">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="email-addon">
+                                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <input type="email" name="email" class="form-control" id="email" [(ngModel)]="debtor.email"
+                                    required placeholder="E-mail" aria-describedby="email-addon" readonly />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <!-- Bank account -->
+                        <div class="form-group">
+                            <label for="bankAccount">Bank Account</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="account-addon">
+                                        <i class="fa fa-credit-card-alt" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <input type="text" name="bankaccount" class="form-control" id="bankAccount" [(ngModel)]="debtor.bank_account"
+                                    required placeholder="Bank Account" aria-describedby="account-addon" readonly />
+                            </div>
+                        </div>
+
+                        <!-- Last name -->
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <div class="input-group mb-1">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="lastName-addon">
+                                        <i class="fa fa-font" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <input type="text" name="lastName" class="form-control" id="lastName" [(ngModel)]="debtor.last_name"
+                                    required placeholder="Last Name" aria-describedby="lastName-addon" readonly />
+                            </div>
+                        </div>
+
+                        <!-- Phone -->
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="phone-addon">
+                                        <i class="fa fa-phone" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <input type="text" name="phone" class="form-control" id="phone" [(ngModel)]="debtor.phone"
+                                    placeholder="Phone" aria-describedby="phone-addon" readonly />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Adress section -->
+                <legend>Address</legend>
+                <div class="form-group row">
+                    <div class="col-sm-12 col-md-6">
+                        <!-- Street and number -->
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <div class="input-group mb-1">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="address-addon">
+                                        <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <input type="text" name="address" class="form-control" id="address" [(ngModel)]="streetWithNumber"
+                                    placeholder="Address" aria-describedby="address-addon" readonly />
+                            </div>
+                        </div>
+
+                        <!-- City -->
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <div class="input-group mb-1">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="city-addon">
+                                        <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <input type="text" name="city" class="form-control" id="city" [(ngModel)]="debtor.address.city"
+                                    placeholder="City" aria-describedby="city-addon" readonly />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <!-- Postal/Zip code -->
+                        <div class="form-group">
+                            <label for="postal_code">Postal Code</label>
+                            <div class="input-group mb-1">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="postal-addon">
+                                        <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <input type="text" name="postal" class="form-control" id="postal" [(ngModel)]="debtor.address.postal_code"
+                                    placeholder="Postal Code" aria-describedby="postal-addon" readonly />
+                            </div>
+                        </div>
+
+                        <!-- Country -->
+                        <div class="form-group">
+                            <label for="country">Country</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="country-addon">
+                                        <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <input type="text" name="country" class="form-control" id="country" [(ngModel)]="debtor.address.country"
+                                    placeholder="Country" aria-describedby="country-addon" readonly />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Company details -->
+            <fieldset [hidden]="!debtor.company_name">
+                <!-- Business section -->
+                <legend>Business Information</legend>
+                <div class="form-group row">
+                    <div class="col-sm-12 col-md-6">
+                        <!-- Business number -->
+                        <div class="form-group">
+                            <label for="bn">Business Number</label>
+                            <div class="input-group mb-1">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="bn-addon">
+                                        <i class="fa fa-id-card" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <input type="text" name="bn" class="form-control" id="bn" [(ngModel)]="debtor.id"
+                                    placeholder="Business Number" autofocus required aria-describedby="bn-addon"
+                                    readonly />
+                            </div>
+                        </div>
+
+                        <!-- Company name -->
+                        <div class="form-group">
+                            <label for="companyName">Business Name</label>
+                            <div class="input-group mb-1">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="companyName-addon">
+                                        <i class="fa fa-font" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <input type="text" name="companyName" class="form-control" id="companyName" [(ngModel)]="debtor.company_name"
+                                    required placeholder="Company Name" aria-describedby="companyName-addon" readonly />
+                            </div>
+                        </div>
+
+                        <!-- E-mail address -->
+                        <div class="form-group">
+                            <label for="email">E-mail address</label>
+                            <div class="input-group mb-1">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="email-addon">
+                                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <input type="email" name="email" class="form-control" id="email" [(ngModel)]="debtor.email"
+                                    required placeholder="E-mail" aria-describedby="email-addon" readonly />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <!-- Bank account -->
+                        <div class="form-group">
+                            <label for="bankAccount">Bank Account</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="account-addon">
+                                        <i class="fa fa-credit-card-alt" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <input type="text" name="bankaccount" class="form-control" id="bankAccount" [(ngModel)]="debtor.bank_account"
+                                    required placeholder="Bank Account" aria-describedby="account-addon" readonly />
+                            </div>
+                        </div>
+
+                        <!-- Phone -->
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="phone-addon">
+                                        <i class="fa fa-phone" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <input type="text" name="phone" class="form-control" id="phone" [(ngModel)]="debtor.phone"
+                                    placeholder="Phone" aria-describedby="phone-addon" readonly />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Adress section -->
+                <legend>Address</legend>
+                <div class="form-group row">
+                    <div class="col-sm-12 col-md-6">
+                        <!-- Street and number -->
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <div class="input-group mb-1">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="address-addon">
+                                        <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <input type="text" name="address" class="form-control" id="address" [(ngModel)]="streetWithNumber"
+                                    placeholder="Address" aria-describedby="address-addon" required readonly />
+                            </div>
+                        </div>
+
+                        <!-- City -->
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <div class="input-group mb-1">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="city-addon">
+                                        <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <input type="text" name="city" class="form-control" id="city" [(ngModel)]="debtor.address.city"
+                                    placeholder="City" aria-describedby="city-addon" required readonly />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <!-- Postal/Zip code -->
+                        <div class="form-group">
+                            <label for="postal_code">Postal Code</label>
+                            <div class="input-group mb-1">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="postal-addon">
+                                        <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <input type="text" name="postal" class="form-control" id="postal" [(ngModel)]="debtor.address.postal_code"
+                                    placeholder="Postal Code" aria-describedby="postal-addon" required readonly />
+                            </div>
+                        </div>
+
+                        <!-- Country -->
+                        <div class="form-group">
+                            <label for="country">Country</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="country-addon">
+                                        <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <input type="text" name="country" class="form-control" id="country" [(ngModel)]="debtor.address.country"
+                                    placeholder="Country" aria-describedby="country-addon" required readonly />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <button type="button" class="btn btn-light d-block mx-sm-auto float-md-right mt-5" routerLink="/debtors">Cancel</button>
+            <button type="button" class="btn btn-primary d-block mx-sm-auto float-md-right mt-5 mr-md-3" [routerLink]="['../../edit', debtor.id]">Edit</button>
+        </form>
+    </div>
+</div>

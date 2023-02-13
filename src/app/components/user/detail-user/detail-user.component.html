@@ -1,0 +1,302 @@
+<div class="row justify-content-around my-3">
+    <div class="wrapper col-sm-12 col-md-10 col-lg-10 mx-auto table-responsive">
+        <form *ngIf="user && roles">
+
+            <ng-container *ngIf="!forCompany">
+                <!-- Person details -->
+                <fieldset [hidden]="user.email === currentUser.email">
+                    <!-- Personal section -->
+                    <legend>User Information</legend>
+                    <div class="form-group row">
+                        <div class="col-sm-12 col-md-6">
+                            <!-- E-mail address -->
+                            <div class="form-group">
+                                <label for="email">E-mail address</label>
+                                <div class="input-group mb-1">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="email-addon">
+                                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                    <input type="email" name="email" class="form-control" id="email" [(ngModel)]="user.email"
+                                        required placeholder="E-mail" aria-describedby="email-addon" readonly />
+                                </div>
+                            </div>
+
+                            <!-- First name -->
+                            <div class="form-group">
+                                <label for="firstName">First Name</label>
+                                <div class="input-group mb-1">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="firstName-addon">
+                                            <i class="fa fa-font" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" name="firstName" class="form-control" id="firstName" [(ngModel)]="user.first_name"
+                                        required placeholder="First Name" aria-describedby="firstName-addon" readonly />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <!-- User Role -->
+                            <div class="form-group">
+                                <label for="role">User Role</label>
+                                <div class="input-group mb-1">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="roles" style="margin-left: 0px;">
+                                            <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                        </label>
+                                    </div>
+                                    <select name="role" id="roles" class="custom-select" id="role" [(ngModel)]="user.role_id"
+                                        disabled>
+                                        <option value="0">Select an user role</option>
+                                        <option *ngFor="let role of roles" [value]="role.id">{{ role.type }}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Last name -->
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <div class="input-group mb-1">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="lastName-addon">
+                                            <i class="fa fa-font" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" name="lastName" class="form-control" id="lastName" [(ngModel)]="user.last_name"
+                                        required placeholder="Last Name" aria-describedby="lastName-addon" readonly />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <!-- Person details -->
+                <fieldset [hidden]="user.email !== currentUser.email">
+                    <!-- Personal section -->
+                    <legend>User Information</legend>
+                    <div class="form-group row">
+                        <div class="col-sm-12 col-md-6">
+                            <!-- E-mail address -->
+                            <div class="form-group">
+                                <label for="email">E-mail address</label>
+                                <div class="input-group mb-1">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="email-addon">
+                                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                    <input type="email" name="email" class="form-control" id="email" [(ngModel)]="user.email"
+                                        required placeholder="E-mail" aria-describedby="email-addon" readonly />
+                                </div>
+                            </div>
+
+                            <!-- First name -->
+                            <div class="form-group">
+                                <label for="firstName">First Name</label>
+                                <div class="input-group mb-1">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="firstName-addon">
+                                            <i class="fa fa-font" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" name="firstName" class="form-control" id="firstName" [(ngModel)]="user.first_name"
+                                        required placeholder="First Name" aria-describedby="firstName-addon" readonly />
+                                </div>
+                            </div>
+
+                            <!-- User Role -->
+                            <div class="form-group">
+                                <label for="role">User Role</label>
+                                <div class="input-group mb-1">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="roles" style="margin-left: 0px;">
+                                            <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                        </label>
+                                    </div>
+                                    <select name="role" id="roles" class="custom-select" id="role" [(ngModel)]="user.role_id"
+                                        disabled>
+                                        <option value="0">Select an user role</option>
+                                        <option *ngFor="let role of roles" [value]="role.id">{{ role.type }}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <!-- Password -->
+                            <div class="form-group">
+                                <label for="pass">Password</label>
+                                <div class="input-group mb-1">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="pass-addon">
+                                            <i class="fa fa-lock" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                    <input type="password" name="pass" class="form-control" id="pass" [(ngModel)]="user.password"
+                                        required placeholder="Password" aria-describedby="pass-addon" readonly />
+                                </div>
+                            </div>
+
+                            <!-- Last name -->
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <div class="input-group mb-1">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="lastName-addon">
+                                            <i class="fa fa-font" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" name="lastName" class="form-control" id="lastName" [(ngModel)]="user.last_name"
+                                        required placeholder="Last Name" aria-describedby="lastName-addon" readonly />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </ng-container>
+
+
+            <ng-container *ngIf="forCompany">
+                <!-- Company details -->
+                <fieldset [hidden]="user.email === currentUser.email">
+                    <!-- Personal section -->
+                    <legend>User Information</legend>
+                    <div class="form-group row">
+                        <div class="col-sm-12 col-md-6">
+                            <!-- E-mail address -->
+                            <div class="form-group">
+                                <label for="email">E-mail address</label>
+                                <div class="input-group mb-1">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="email-addon">
+                                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                    <input type="email" name="email" class="form-control" id="email" [(ngModel)]="user.email"
+                                        required placeholder="E-mail" aria-describedby="email-addon" readonly />
+                                </div>
+                            </div>
+
+                            <!-- Business name -->
+                            <div class="form-group">
+                                <label for="companyName">Business Name</label>
+                                <div class="input-group mb-1">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="companyName-addon">
+                                            <i class="fa fa-font" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" name="companyName" class="form-control" id="companyName"
+                                        [(ngModel)]="user.company_name" required placeholder="Business Name"
+                                        aria-describedby="companyName-addon" readonly />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <!-- User Role -->
+                            <div class="form-group">
+                                <label for="role">User Role</label>
+                                <div class="input-group mb-1">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="roles" style="margin-left: 0px;">
+                                            <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                        </label>
+                                    </div>
+                                    <select name="role" id="roles" class="custom-select" id="role" [(ngModel)]="user.role_id"
+                                        disabled>
+                                        <option value="0">Select an user role</option>
+                                        <option *ngFor="let role of roles" [value]="role.id">{{ role.type }}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <!-- Company details -->
+                <fieldset [hidden]="user.email !== currentUser.email">
+                    <!-- Personal section -->
+                    <legend>User Information</legend>
+                    <div class="form-group row">
+                        <div class="col-sm-12 col-md-6">
+                            <!-- E-mail address -->
+                            <div class="form-group">
+                                <label for="email">E-mail address</label>
+                                <div class="input-group mb-1">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="email-addon">
+                                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                    <input type="email" name="email" class="form-control" id="email" [(ngModel)]="user.email"
+                                        required placeholder="E-mail" aria-describedby="email-addon" readonly />
+                                </div>
+                            </div>
+
+                            <!-- Business name -->
+                            <div class="form-group">
+                                <label for="companyName">Business Name</label>
+                                <div class="input-group mb-1">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="companyName-addon">
+                                            <i class="fa fa-font" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" name="companyName" class="form-control" id="companyName"
+                                        [(ngModel)]="user.company_name" required placeholder="Business Name"
+                                        aria-describedby="companyName-addon" readonly />
+                                </div>
+                            </div>
+
+                            <!-- User Role -->
+                            <div class="form-group">
+                                <label for="role">User Role</label>
+                                <div class="input-group mb-1">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="roles" style="margin-left: 0px;">
+                                            <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                        </label>
+                                    </div>
+                                    <select name="role" id="roles" class="custom-select" id="role" [(ngModel)]="user.role_id"
+                                        disabled>
+                                        <option value="0">Select an user role</option>
+                                        <option *ngFor="let role of roles" [value]="role.id">{{ role.type }}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <!-- Password -->
+                            <div class="form-group">
+                                <label for="pass">Password</label>
+                                <div class="input-group mb-1">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="pass-addon">
+                                            <i class="fa fa-lock" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                    <input type="password" name="pass" class="form-control" id="pass" [(ngModel)]="user.password"
+                                        required placeholder="Password" aria-describedby="pass-addon" readonly />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </ng-container>
+
+            <!-- Profile picture section -->
+            <fieldset>
+                <legend>Profile Picture</legend>
+                <div class="form-group row">
+                    <div class="col-sm-4 mx-auto text-center">
+                        <img class="img-fluid profile-picture" [src]="_sanitizer.bypassSecurityTrustUrl(user.picture)" />
+                    </div>
+                </div>
+            </fieldset>
+
+            <button type="button" class="btn btn-light d-block mx-sm-auto float-md-right mt-5" routerLink="/users">Cancel</button>
+            <button type="button" class="btn btn-primary d-block mx-sm-auto float-md-right mt-5 mr-md-3" [routerLink]="['../../edit', user.id]">Edit</button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,145 @@
+<div class="data-table" *ngIf="pagedResult">
+    <div class="actions" [hidden]="currentUser?.role == 2">
+        <div class="buttons">
+            <div class="btn-group">
+                <a routerLinkActive="active" [routerLink]="['create']" class="btn btn-outline-light" title="Create invoice">
+                    <i class="fa fa-plus"></i><span>Create invoice</span>
+                </a>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-outline-light dropdown-toggle font-weight-bold" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        More
+                    </button>
+                    <div class="dropdown-menu">
+                        <button class="dropdown-item" type="button" (click)="deleteSelected()">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="search">
+            <div class="input-wrapper">
+                <input class="form-control" type="text" name="search" id="search" placeholder="Type to start searching..."
+                    [(ngModel)]="query" (keyup)="search()" />
+                <label for="search" class="fa fa-search input-icon"></label>
+            </div>
+        </div>
+    </div>
+    <div class="data">
+        <p class="text-center py-2" *ngIf="pagedResult.data.length == 0">No invoices available.</p>
+        <table class="table table-hover" *ngIf="pagedResult.data.length > 0">
+            <thead>
+                <tr>
+                    <th class="pl-3">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" name="selectAll" id="selectAll"
+                                (change)="selectAll($event)" />
+                            <label class="custom-control-label" for="selectAll"></label>
+                        </div>
+                    </th>
+                    <th class="pl-3 pointer" (click)="sort('expired_on')">
+                        Due date
+                        <i class="fa" [ngClass]="{'fa-sort': column != 'expired_on', 
+                                                'fa-sort-asc': (column == 'expired_on' && !isDesc), 
+                                                'fa-sort-desc': (column == 'expired_on' && isDesc) }"
+                            aria-hidden="true"> </i>
+                    </th>
+                    <th>Invoice Nr.</th>
+                    <th class="pointer" (click)="sort('total')">
+                        Total
+                        <i class="fa" [ngClass]="{'fa-sort': column != 'total', 
+                                                'fa-sort-asc': (column == 'total' && !isDesc), 
+                                                'fa-sort-desc': (column == 'total' && isDesc) }"
+                            aria-hidden="true"> </i>
+                    </th>
+                    <th>Debtor</th>
+                    <th class="pointer" (click)="sort('is_paid')">
+                        Paid
+                        <i class="fa" [ngClass]="{'fa-sort': column != 'is_paid', 
+                                                'a-sort-asc': (column == 'is_paid' && !isDesc), 
+                                                'fa-sort-desc': (column == 'is_paid' && isDesc) }"
+                            aria-hidden="true"> </i>
+                    </th>
+                    <th class="pointer" (click)="sort('concept')">
+                        Concept
+                        <i class="fa" [ngClass]="{'fa-sort': column != 'concept', 
+                                                'fa-sort-asc': (column == 'concept' && !isDesc), 
+                                                'fa-sort-desc': (column == 'concept' && isDesc) }"
+                            aria-hidden="true"> </i>
+                    </th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="data-row" *ngFor="let invoice of pagedResult.data;let i = index;">
+                    <td>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" [checked]="invoice.selected" class="custom-control-input" id="select{{i}}"
+                                (change)="selected(invoice, $event)" />
+                            <label class="custom-control-label" for="select{{i}}"></label>
+                        </div>
+                    </td>
+                    <td data-title="Due date" style="font-weight: 600;">
+                        <span>{{ invoice.expired_on | date: 'MMMM dd, yyyy' }}</span>
+                    </td>
+                    <td data-title="Invoice Nr.">
+                        <a [routerLink]="['details', invoice.invoice_number]" title="View invoice details">
+                            {{ settings.invoice_prefix }}{{ invoice.invoice_number }}
+                        </a>
+                    </td>
+                    <td data-title="Total">
+                        {{ getLocaleString(invoice.total) }}
+                    </td>
+                    <td data-title="Debtor">
+                        {{ invoice.debtor.id }} - <span *ngIf="invoice.debtor.company_name == null">{{
+                            invoice.debtor.first_name }} {{ invoice.debtor.last_name }}</span> <span *ngIf="invoice.debtor.company_name != null">{{
+                            invoice.debtor.company_name }}</span>
+                    </td>
+                    <td data-title="Paid">
+                        {{ invoice.is_paid == true ? 'Yes' : 'No' }}
+                    </td>
+                    <td data-title="Concept">
+                        {{ invoice.concept == true ? 'Yes' : 'No' }}
+                    </td>
+                    <td data-title="Status">
+                        <span class="badge badge-primary py-1 px-1" *ngIf="!isExpirationExpired(invoice) && !invoice.is_paid">
+                            Sent
+                        </span>
+                        <span class="badge badge-success py-1 px-1" *ngIf="invoice.is_paid">
+                            Paid
+                        </span>
+                        <span class="badge badge-danger py-1 px-1" *ngIf="isExpirationExpired(invoice) && !invoice.is_paid">
+                            {{ differenceInDays(invoice.expired_on) }} days overdue
+                        </span>
+                    </td>
+                    <td date-title="">
+                        <a role="button" href="{{href}}/api/invoices/pdf?invoice={{invoice.invoice_number}}" target="_blank"
+                            class="btn-download" title="Open PDF">
+                            <i class="fa fa-download"></i>
+                        </a>
+                        <button class="btn-edit" [routerLink]="['edit', invoice.invoice_number]" title="Edit" [hidden]="currentUser.role_id == 2">
+                            <i class="fa fa-edit"></i>
+                        </button>
+                        <button class="btn-delete" type="button" (click)="deleteSelected(invoice.invoice_number)" title="Remove"
+                            [hidden]="currentUser.role_id == 2">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="pager" *ngIf="pagedResult.data.length > 0 && pagedResult.total_pages > 1">
+        <div class="right" *ngIf="pagedResult != null">
+            <button [disabled]="pagedResult.current_page == pagedResult.total_pages" class="btn btn-primary" (click)="getPage(pagedResult.current_page + 1)"
+                title="Next Page">
+                <i class="fa fa-chevron-right"></i>
+            </button>
+            <button [disabled]="pagedResult.current_page == 1" class="btn btn-primary" (click)="getPage(pagedResult.current_page - 1)"
+                title="Previous Page">
+                <i class="fa fa-chevron-left"></i>
+            </button>
+        </div>
+    </div>
+</div>

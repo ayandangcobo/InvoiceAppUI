@@ -1,0 +1,18 @@
+@import '../../../vars.scss';
+
+hr {
+    border-top: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.card {
+    border: 1px solid rgba(255, 255, 255, 0.5);
+
+    .card-header {
+        background-color: $header-bg;
+        border-bottom: $header-border;
+        font-weight: 700;
+        color: $header-text;
+        font-size: .9rem;
+        font-family: 'Open Sans';
+    }
+}

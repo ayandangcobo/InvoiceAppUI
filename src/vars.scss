@@ -1,0 +1,29 @@
+/*----------------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------------*/
+/* Navbar Variables */
+$navbarHeight: 75px;
+$navbarHeightSmall: 65px;
+$sidebarWidth: 8vw;
+$sidebarWidthSmall: 5vw;
+$fullWidth: 100vw;
+$mainWidth: 100vw - $sidebarWidth;
+$mainWidthSmall: 100vw - $sidebarWidthSmall;
+$pageTitleHeight: 50px;
+
+/*----------------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------------*/
+/* Color Variables */
+$navbar-primary: #35475e;
+$navbar-text: #fff;
+$navbar-hover: #30373f;
+$navbar-active: #5a779c;
+
+$header-bg: #eef1f7;
+$header-text: #4b5961;
+$header-border: 1px solid #b8bec9;
+
+$link-color: #7ab132;
+$download-color: #32ca54;
+$edit-color: #0072ec;
+$delete-color: #da081d;
+$hover-darken: 15%;

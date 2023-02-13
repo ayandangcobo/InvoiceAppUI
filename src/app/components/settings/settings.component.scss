@@ -1,0 +1,42 @@
+legend {
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin-bottom: 1.3rem;
+    margin-top: 2rem;
+    font-size: 1.3rem;
+    font-weight: 500;
+    line-height: inherit;
+    color: #4c5962;
+    border: 0;
+    border-bottom: 1px solid #b9bfca;
+}
+
+button.btn {
+    width: 150px;
+}
+
+label {
+    font-weight: 500;
+    font-family: 'Open Sans';
+    font-size: 14px;
+    color: #787878;
+    margin-left: 5px;
+}
+
+#color {
+    padding: .1rem .3rem;
+    width: 14%;
+    height: 25px;
+}
+
+@media (max-width: 992px) {
+    .btn {
+        width: 60% !important;
+        height: 50px;
+        float: none !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        line-height: 2.5;
+    }
+}
