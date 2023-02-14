@@ -1,0 +1,43 @@
+.container {
+    cursor: pointer;
+    min-height: 100px;
+    width: 300px;
+    margin-top: 5px;
+    margin-left: 5px;
+  }
+  
+  .container:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.08), 0 6px 20px 0 rgba(0, 0, 0, 0.05);
+  }
+  
+  .success {
+    background: #2ecc71;
+  }
+  
+  .warning {
+    background: #e67e22;
+  }
+  
+  .error {
+    background: #e74c3c;
+  }
+  
+  .title {
+    font-size: 20px;
+    color: #FFFFFF;
+    padding: 5px;
+  }
+  
+  .content {
+    color: #FFFFFF;
+    padding: 5px;
+  }
+  
+  .progress {
+      background:#000000;
+      height: 3px;
+      opacity: 0.4;
+      width: 100%;
+      transition: width 0.2s;
+      transition-timing-function: linear;
+  }

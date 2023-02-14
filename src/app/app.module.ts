@@ -1,11 +1,12 @@
 import { HttpClientModule } from '@angular/common/http';
 import { APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA, ErrorHandler, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthenticationService } from 'src/shared/authentication.service';
 import { AuthGuard } from 'src/shared/authguard.service';
 import { CustomErrorHandler } from 'src/shared/error-handler';
-import { NotificationService } from 'src/shared/notifications/notification.service';
+import { NotificationsModule } from 'src/shared/notifications/notifications.module';
 import { ApplicationService } from 'src/shared/services/application.service';
 import { RoleService } from 'src/shared/services/role.service';
 import { SettingsService } from 'src/shared/services/settings.service';
@@ -19,7 +20,6 @@ import { ModalModule } from './components/modal/modal.module';
 import { SettingsModule } from './components/settings/settings.module';
 import { UserModule } from './components/user/user.module';
 
-
 export function app_Init(appService: ApplicationService): any {
     return () => appService.initializeApp();
 }
@@ -32,15 +32,17 @@ export function app_Init(appService: ApplicationService): any {
     imports: [
         BrowserModule,
         HttpClientModule,
+        FormsModule,
+        BrowserModule,
+        BrowserAnimationsModule,
+        NotificationsModule,
         UserModule,
         DashboardModule,
         DebtorModule,
         InvoiceModule,
         SettingsModule,
         ModalModule,
-        AppRoutingModule,
-        BrowserModule,
-        BrowserAnimationsModule
+        AppRoutingModule
     ],
     exports: [
     ],
@@ -48,7 +50,6 @@ export function app_Init(appService: ApplicationService): any {
         RoleService,
         SettingsService,
         ApplicationService,
-        NotificationService,
         { provide: AuthGuard, useClass: AuthGuard },
         { provide: AuthenticationService, useClass: AuthenticationService },
         { provide: ErrorHandler, useClass: CustomErrorHandler },

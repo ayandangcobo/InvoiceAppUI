@@ -33,7 +33,7 @@ export class AddressService {
     }
 
     // tslint:disable-next-line:variable-name
-    addressExists(postal: string, number: number): Observable<boolean> {
+    addressExists(postal: string, number: number = 1): Observable<boolean> {
         return this.http.get<boolean>(this.apiUrl + 'addressExists?number=' + number + '&postal=' + postal)
             .pipe(catchError(error => throwError(error)));
     }
@@ -44,7 +44,7 @@ export class AddressService {
     }
 
     // tslint:disable-next-line:variable-name
-    delete(number: number, suffix: string, postal: string): Observable<boolean> {
+    delete(number: number = 1, suffix: string, postal: string): Observable<boolean> {
         return this.http.delete<boolean>(this.apiUrl + 'delete?number=' + number + '&suffix=' + suffix + '&postal=' + postal)
             .pipe(catchError(error => throwError(error)));
     }

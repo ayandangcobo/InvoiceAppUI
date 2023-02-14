@@ -5,7 +5,7 @@ import Address from 'src/shared/models/address.model';
 import Debtor from 'src/shared/models/debtor.model';
 import DebtorHasAddress from 'src/shared/models/debtor_has_address.model';
 import Settings from 'src/shared/models/settings.model';
-import { NotificationService } from 'src/shared/notifications/notification.service';
+import { NotificationsService } from 'src/shared/notifications/notification.service';
 import { AddressService } from 'src/shared/services/address.service';
 import { DebtorService } from 'src/shared/services/debtor.service';
 import { DebtorHasAddressService } from 'src/shared/services/debtor_has_address.service';
@@ -26,7 +26,8 @@ export class ImportDebtorComponent implements OnInit {
     fileLabel = 'Choose a CSV file to upload';
 
     constructor(private titleService: Title, private debtorService: DebtorService, private addressService: AddressService,
-                private debtorHasAddressService: DebtorHasAddressService, private toastyService: NotificationService,
+                private debtorHasAddressService: DebtorHasAddressService,
+                private notificationService: NotificationsService,
                 private route: ActivatedRoute, private router: Router) {
 
         this.titleService.setTitle('Import Debtors - ' + this.settings.company_name);
@@ -123,7 +124,7 @@ export class ImportDebtorComponent implements OnInit {
                 (res) => {
                     count++;
                     if (count === this.debtors.length) {
-                        this.toastyService.success('Debtor(s) have been successfully added!', 'Success', 4000);
+                        this.notificationService.success('Added successfully!', 'Debtor(s)');
                     }
                 },
                 (error) => { throw error; }

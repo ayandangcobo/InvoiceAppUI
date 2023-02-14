@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
+import { environment } from 'src/environments/environment';
 import Debtor from 'src/shared/models/debtor.model';
 import Invoice from 'src/shared/models/invoice.model';
 import { PaginationResult } from 'src/shared/models/pagination.result';
@@ -38,7 +39,7 @@ export class InvoiceComponent implements OnInit {
     ngOnInit(): void {
         this.titleService.setTitle('Invoices - ' + this.settings.company_name);
 
-        this.href = window.location.origin;
+        this.href = environment.apiBase;
 
         if (this.currentUser.role_id === 2) {
             this.getDebtor();
@@ -195,7 +196,7 @@ export class InvoiceComponent implements OnInit {
     }
 
     getLocaleString(total: number): string {
-        return total.toLocaleString('nl-NL', { style: 'currency', currency: 'EUR' });
+        return total.toLocaleString('en-ZA', { style: 'currency', currency: 'ZAR' });
     }
 
     isExpirationExpired(invoice: Invoice): boolean {

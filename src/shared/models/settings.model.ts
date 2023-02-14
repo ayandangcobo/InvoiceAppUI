@@ -1,30 +1,30 @@
 export default class Settings {
-    id: number = null;
+    id: number;
 
-    company_name: string = null;
-    website: string = null;
-    phone: string = null;
+    company_name: string;
+    website: string;
+    phone: string;
 
-    address: string = null;
-    postal_code: string = null;
-    city: string = null;
-    country: string = null;
+    address: string;
+    postal_code: string;
+    city: string;
+    country: string;
 
-    business_number: string = null;
-    vat: string = null;
+    business_number: string;
+    vat: string;
 
-    bank: string = null;
-    bank_account: string = null;
+    bank: string;
+    bank_account: string;
 
-    email: string = null;
-    password: string = null;
-    smtp: string = null;
-    smtp_port: number = null;
+    email: string;
+    password: string;
+    smtp: string;
+    smtp_port: number;
 
-    invoice_prefix: string = null;
+    invoice_prefix: string;
 
-    logo: string = null;
-    show_logo: boolean = null;
-    show_logo_in_pdf: boolean = null;
-    color: string = null;
+    logo: string;
+    show_logo: boolean;
+    show_logo_in_pdf: boolean;
+    color: string;
 }

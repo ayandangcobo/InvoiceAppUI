@@ -1,21 +1,5 @@
-<div class="notifications">
-	<div *ngFor="let notification of notifications" class="notification" [ngClass]="className(notification)">
-		<ng-container *ngTemplateOutlet="notificationTpl;context:{notification:notification}"></ng-container>
-	</div>
+<div class="container" [ngClass]="notification.level" (click)="remove()" (mouseenter)="pause()" (mouseleave)="unPause()">
+	<div *ngIf="notification.options.timeout" class="progress" [style.width]="(notification.obs.remainingPercent | async)+'%'"></div>
+	<div class="title"> {{notification.title}}</div>
+	<div class="content"> {{notification.text}} </div>
 </div>
-
-<ng-template #notificationTpl let-notification="notification">
-
-	<div class="title" fxLayout="row" fxLayoutAlign="space-between center">
-		<div>{{notification.title}}</div>
-		<button mat-icon-button 
-            (click)="close(notification)"
-            matTooltip="Close the notification"
-            matTooltipPosition="before">
-        <mat-icon>cancel</mat-icon>
-      </button>
-	</div>
-
-	<div class="message">{{notification.message}}</div>
-
-</ng-template>

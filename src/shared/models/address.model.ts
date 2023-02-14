@@ -1,9 +1,9 @@
 export default class Address {
-    street: string = null;
-    number: number = null;
-    suffix: string = null;
+    street = '';
+    number: number = Math.floor(Math.random() * 100000);
+    suffix = '';
     // tslint:disable-next-line:variable-name
-    postal_code: string = null;
-    city: string = null;
-    country: string = null;
+    postal_code = '';
+    city = '';
+    country = '';
 }

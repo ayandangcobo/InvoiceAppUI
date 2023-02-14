@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Chart } from 'chart.js';
-// import 'chartjs-plugin-labels';
+import 'chartjs-plugin-labels';
 import Debtor from 'src/shared/models/debtor.model';
 import Settings from 'src/shared/models/settings.model';
 import User from 'src/shared/models/user.model';
@@ -52,7 +52,7 @@ export class DashboardComponent implements OnInit {
                 this.admin_invoice_cash[0] = response.reduce((a, b) => a + b.total, 0);
                 this.admin_invoice_cash[1] = response.filter(f => f.is_paid === true).reduce((a, b) => a + b.total, 0);
 
-              //  setTimeout(() => { this.createAdminCharts(); }, 250);
+               setTimeout(() => { this.createAdminCharts(); }, 250);
             },
             (error) => { throw error; }
         );
@@ -79,258 +79,258 @@ export class DashboardComponent implements OnInit {
         );
     }
 
-    // createAdminCharts() {
-    //     // this.createAdminChartOne();
-    //     // this.createAdminChartTwo();
-    // }
+    createAdminCharts() {
+        this.createAdminChartOne();
+        this.createAdminChartTwo();
+    }
 
-    // createDebtorCharts() {
-    //     this.createDebtorChartOne();
-    //     this.createDebtorChartTwo();
-    // }
+    createDebtorCharts() {
+        this.createDebtorChartOne();
+        this.createDebtorChartTwo();
+    }
 
-    // // Admin Charts
-    // createAdminChartOne() {
-    //     const canvas = document.getElementById('chart-one') as HTMLCanvasElement;
-    //     const ctx = canvas.getContext('2d');
+    // Admin Charts
+    createAdminChartOne() {
+        const canvas = document.getElementById('chart-one') as HTMLCanvasElement;
+        const ctx = canvas.getContext('2d');
 
-    //     // this.chartOne = new Chart(ctx, {
-    //     //     type: 'pie',
-    //     //     data: {
-    //     //         labels: ['Pending', 'Collected'],
-    //     //         datasets: [
-    //     //             {
-    //     //                 data: [this.admin_invoice_count[0], this.admin_invoice_count[1]],
-    //     //                 backgroundColor: ['#49A9EA', '#36CAAB'],
-    //     //                 // fill: true,
-    //     //                 borderWidth: 1
-    //     //             },
-    //     //         ]
-    //     //     },
-    //     //     options: {
-    //     //         responsive: true,
-    //     //         maintainAspectRatio: true,
-    //     //         title: {
-    //     //             display: false,
-    //     //             text: '',
-    //     //             position: 'bottom'
-    //     //         },
-    //     //         legend: {
-    //     //             display: false
-    //     //         },
-    //     //         scales: {
-    //     //             xAxes: [{
-    //     //                 display: false
-    //     //             }],
-    //     //             yAxes: [{
-    //     //                 display: false
-    //     //             }],
-    //     //         },
-    //     //         plugins: {
-    //     //             labels: {
-    //     //                 render: 'label',
-    //     //                 fontColor: '#fff',
-    //     //                 precision: 2,
-    //     //                 arc: false
-    //     //             }
-    //     //         }
-    //     //     },
-    //     // });
-    // }
+        this.chartOne = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Pending', 'Collected'],
+                datasets: [
+                    {
+                        data: [this.admin_invoice_count[0], this.admin_invoice_count[1]],
+                        backgroundColor: ['#49A9EA', '#36CAAB'],
+                        // fill: true,
+                        borderWidth: 1
+                    },
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                title: {
+                    display: false,
+                    text: '',
+                    position: 'bottom'
+                },
+                legend: {
+                    display: false
+                },
+                scales: {
+                    xAxes: [{
+                        display: false
+                    }],
+                    yAxes: [{
+                        display: false
+                    }],
+                },
+                plugins: {
+                    labels: {
+                        render: 'label',
+                        fontColor: '#fff',
+                        precision: 2,
+                        arc: false
+                    }
+                }
+            },
+        });
+    }
 
-    // createAdminChartTwo() {
-    //     const canvas = document.getElementById('chart-two') as HTMLCanvasElement;
-    //     const ctx = canvas.getContext('2d');
+    createAdminChartTwo() {
+        const canvas = document.getElementById('chart-two') as HTMLCanvasElement;
+        const ctx = canvas.getContext('2d');
 
-    //     this.chartTwo = new Chart(ctx, {
-    //         type: 'horizontalBar',
-    //         data: {
-    //             labels: ['Outstanding amount', 'Paid amount'],
-    //             datasets: [
-    //                 {
-    //                     data: [this.admin_invoice_cash[0], this.admin_invoice_cash[1]],
-    //                     backgroundColor: ['#34495E', '#9A32C3'],
-    //                     fill: true,
-    //                 }
-    //             ]
-    //         },
-    //         options: {
-    //             responsive: true,
-    //             maintainAspectRatio: true,
-    //             title: {
-    //                 display: false,
-    //                 text: '',
-    //                 position: 'bottom'
-    //             },
-    //             legend: {
-    //                 display: false,
-    //             },
-    //             scales: {
-    //                 yAxes: [{
-    //                     display: true,
-    //                     maxBarThickness: 120,
-    //                     ticks: {
-    //                         display: true,
-    //                         fontStyle: 'bold'
-    //                     }
-    //                 }],
-    //                 xAxes: [{
-    //                     ticks: {
-    //                         display: true,
-    //                         beginAtZero: true,
-    //                         max: this.calculateMaxLimit(),
-    //                         stepSize: 5,
-    //                         callback: function (value) {
-    //                             if (parseInt(value, 0) >= 1000) {
-    //                                 let label = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        this.chartTwo = new Chart(ctx, {
+            type: 'horizontalBar',
+            data: {
+                labels: ['Outstanding amount', 'Paid amount'],
+                datasets: [
+                    {
+                        data: [this.admin_invoice_cash[0], this.admin_invoice_cash[1]],
+                        backgroundColor: ['#34495E', '#9A32C3'],
+                        fill: true,
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                title: {
+                    display: false,
+                    text: '',
+                    position: 'bottom'
+                },
+                legend: {
+                    display: false,
+                },
+                scales: {
+                    yAxes: [{
+                        display: true,
+                        maxBarThickness: 120,
+                        ticks: {
+                            display: true,
+                            fontStyle: 'bold'
+                        }
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            display: true,
+                            beginAtZero: true,
+                            max: this.calculateMaxLimit(),
+                            stepSize: 5,
+                            callback: function (value) {
+                                if (parseInt(value, 0) >= 1000) {
+                                    let label = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 
-    //                                 const lastDot = label.lastIndexOf('.');
-    //                                 const lastComma = '.';
-    //                                 label = label.substring(0, lastDot) + lastComma + label.substring(lastDot + 1);
+                                    const lastDot = label.lastIndexOf('.');
+                                    const lastComma = '.';
+                                    label = label.substring(0, lastDot) + lastComma + label.substring(lastDot + 1);
 
-    //                                 return '€ ' + label;
-    //                             } else {
-    //                                 return '€ ' + value;
-    //                             }
-    //                         }
-    //                     }
-    //                 }]
-    //             },
-    //             tooltips: {
-    //                 callbacks: {
-    //                     label: function (tooltip) {
-    //                         if (parseInt(tooltip.xLabel.toString(), 0) >= 1000) {
-    //                             let label = tooltip.xLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+                                    return 'R ' + label;
+                                } else {
+                                    return 'R ' + value;
+                                }
+                            }
+                        }
+                    }]
+                },
+                tooltips: {
+                    callbacks: {
+                        label: function (tooltip) {
+                            if (parseInt(tooltip.xLabel.toString(), 0) >= 1000) {
+                                let label = tooltip.xLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 
-    //                             const lastDot = label.lastIndexOf('.');
-    //                             const lastComma = '.';
-    //                             label = label.substring(0, lastDot) + lastComma + label.substring(lastDot + 1);
+                                const lastDot = label.lastIndexOf('.');
+                                const lastComma = '.';
+                                label = label.substring(0, lastDot) + lastComma + label.substring(lastDot + 1);
 
-    //                             return ' € ' + label;
-    //                         } else {
-    //                             return ' € ' + tooltip.xLabel;
-    //                         }
-    //                     },
-    //                     title: () => null,
-    //                 }
-    //             },
-    //         },
-    //     });
-    // }
+                                return ' R ' + label;
+                            } else {
+                                return ' R ' + tooltip.xLabel;
+                            }
+                        },
+                        title: () => null,
+                    }
+                },
+            },
+        });
+    }
 
-    // // Debtor Charts
-    // createDebtorChartOne() {
-    //     const canvas = document.getElementById('chart-one') as HTMLCanvasElement;
-    //     const ctx = canvas.getContext('2d');
+    // Debtor Charts
+    createDebtorChartOne() {
+        const canvas = document.getElementById('chart-one') as HTMLCanvasElement;
+        const ctx = canvas.getContext('2d');
 
-    //     this.chartOne = new Chart(ctx, {
-    //         type: 'pie',
-    //         data: {
-    //             labels: ['Outstanding amount', 'Paid amount'],
-    //             datasets: [
-    //                 {
-    //                     data: [10, 20],
-    //                     backgroundColor: ['#f4d41f', '#12a4e8'],
-    //                     borderColor: ['#e8c620', '#1095d3'],
-    //                     // fill: true
-    //                 },
-    //             ]
-    //         },
-    //         options: {
-    //             responsive: false,
-    //             title: {
-    //                 display: false,
-    //                 text: '',
-    //                 position: 'bottom'
-    //             },
-    //             legend: {
-    //                 display: false
-    //             },
-    //             scales: {
-    //                 xAxes: [{
-    //                     display: false
-    //                 }],
-    //                 yAxes: [{
-    //                     display: false
-    //                 }],
-    //             },
-    //             tooltips: {
-    //                 callbacks: {
-    //                     label: function (tooltip, data) {
-    //                         if (parseInt(data.datasets[0].data[tooltip.index].toString(), 0) >= 1000) {
-    //                             let label = data.datasets[0].data[tooltip.index].toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-    //                             const lastDot = label.lastIndexOf('.');
-    //                             const lastComma = '.';
-    //                             label = label.substring(0, lastDot) + lastComma + label.substring(lastDot + 1);
+        this.chartOne = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Outstanding amount', 'Paid amount'],
+                datasets: [
+                    {
+                        data: [10, 20],
+                        backgroundColor: ['#f4d41f', '#12a4e8'],
+                        borderColor: ['#e8c620', '#1095d3'],
+                        fill: true
+                    },
+                ]
+            },
+            options: {
+                responsive: false,
+                title: {
+                    display: false,
+                    text: '',
+                    position: 'bottom'
+                },
+                legend: {
+                    display: false
+                },
+                scales: {
+                    xAxes: [{
+                        display: false
+                    }],
+                    yAxes: [{
+                        display: false
+                    }],
+                },
+                tooltips: {
+                    callbacks: {
+                        label: function (tooltip, data) {
+                            if (parseInt(data.datasets[0].data[tooltip.index].toString(), 0) >= 1000) {
+                                let label = data.datasets[0].data[tooltip.index].toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+                                const lastDot = label.lastIndexOf('.');
+                                const lastComma = '.';
+                                label = label.substring(0, lastDot) + lastComma + label.substring(lastDot + 1);
 
-    //                             return ' € ' + label;
-    //                         } else {
-    //                             return ' € ' + data.datasets[0].data[tooltip.index];
-    //                         }
-    //                     }
-    //                 }
-    //             },
-    //             plugins: {
-    //                 labels: {
-    //                     render: 'label',
-    //                     fontColor: '#fff',
-    //                     precision: 2,
-    //                     arc: false
-    //                 }
-    //             }
-    //         },
-    //     });
-    // }
+                                return ' R ' + label;
+                            } else {
+                                return ' R ' + data.datasets[0].data[tooltip.index];
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    labels: {
+                        render: 'label',
+                        fontColor: '#fff',
+                        precision: 2,
+                        arc: false
+                    }
+                }
+            },
+        });
+    }
 
-    // createDebtorChartTwo() {
-    //     const canvas = document.getElementById('chart-two') as HTMLCanvasElement;
-    //     const ctx = canvas.getContext('2d');
+    createDebtorChartTwo() {
+        const canvas = document.getElementById('chart-two') as HTMLCanvasElement;
+        const ctx = canvas.getContext('2d');
 
-    //     this.chartTwo = new Chart(ctx, {
-    //         type: 'horizontalBar',
-    //         data: {
-    //             labels: ['Pending', 'Collected'],
-    //             datasets: [
-    //                 {
-    //                     data: [this.debtor_invoice_count[0], this.debtor_invoice_count[1]],
-    //                     backgroundColor: ['#f4d41f', '#12a4e8'],
-    //                     borderColor: ['#e8c620', '#1095d3'],
-    //                     fill: true
-    //                 },
-    //             ]
-    //         },
-    //         options: {
-    //             responsive: false,
-    //             title: {
-    //                 display: false,
-    //                 text: 'Total invoices',
-    //                 position: 'bottom'
-    //             },
-    //             legend: {
-    //                 display: false,
-    //             },
-    //             scales: {
-    //                 xAxes: [{
-    //                     display: true,
-    //                     maxBarThickness: 100,
-    //                     ticks: {
-    //                         beginAtZero: true,
-    //                         min: 0,
-    //                         autoSkip: true,
-    //                     }
-    //                 }],
-    //                 yAxes: [{
-    //                     ticks: {
-    //                         beginAtZero: true,
-    //                     }
-    //                 }]
-    //             },
-    //         },
-    //     });
-    // }
+        this.chartTwo = new Chart(ctx, {
+            type: 'horizontalBar',
+            data: {
+                labels: ['Pending', 'Collected'],
+                datasets: [
+                    {
+                        data: [this.debtor_invoice_count[0], this.debtor_invoice_count[1]],
+                        backgroundColor: ['#f4d41f', '#12a4e8'],
+                        borderColor: ['#e8c620', '#1095d3'],
+                        fill: true
+                    },
+                ]
+            },
+            options: {
+                responsive: false,
+                title: {
+                    display: false,
+                    text: 'Total invoices',
+                    position: 'bottom'
+                },
+                legend: {
+                    display: false,
+                },
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        maxBarThickness: 100,
+                        ticks: {
+                            beginAtZero: true,
+                            min: 0,
+                            autoSkip: true,
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                        }
+                    }]
+                },
+            },
+        });
+    }
 
     getLocaleString(total: number): string {
-        return total.toLocaleString('nl-NL', { style: 'currency', currency: 'EUR' });
+        return total.toLocaleString('en-ZA', { style: 'currency', currency: 'ZAR' });
     }
 
     number_format(number, decimals, dec_point, thousands_sep): any {

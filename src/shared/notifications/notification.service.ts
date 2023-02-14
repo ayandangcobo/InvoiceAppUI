@@ -1,36 +1,65 @@
 import { Injectable } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
-import { Notifications, NotificationType } from './notification';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { MyNotification } from './notification';
+import { getPausableTimer } from './utils';
 
 
-@Injectable()
-export class NotificationService {
 
-  // tslint:disable-next-line:variable-name
-  private _subject = new Subject<Notifications>();
-  // tslint:disable-next-line:variable-name
-  private _idx = 0;
+@Injectable({
+  providedIn: 'root'
+})
+export class NotificationsService {
+  private notifications$ = new BehaviorSubject<MyNotification[]>([]);
 
-  constructor() { }
-
-  getObservable(): Observable<Notifications> {
-    return this._subject.asObservable();
+  public getNotifications(): Observable<MyNotification[]> {
+    return this.notifications$;
   }
 
-  info(title: string, message: string, timeout = 3000): void {
-    this._subject.next(new Notifications(this._idx++, NotificationType.info, title, message, timeout));
+  private addNotification(notification: MyNotification): void {
+    if (notification && notification.options && notification.options.timeout) {
+      notification.obs = getPausableTimer(notification.options.timeout, notification.paused);
+      notification.obs.completeTimer
+        .pipe(tap(() => this.removeNotification(notification.id))).subscribe();
+    }
+    this.next([...this.notifications$.getValue(), notification]);
   }
 
-  success(title: string, message: string, timeout = 3000): void {
-    this._subject.next(new Notifications(this._idx++, NotificationType.success, title, message, timeout));
+  public removeNotification(id: number): void {
+    this.next(this.notifications$.getValue().filter(_ => _.id !== id));
   }
 
-  warning(title: string, message: string, timeout = 3000): void {
-    this._subject.next(new Notifications(this._idx++, NotificationType.warning, title, message, timeout));
+  private next(notifications: MyNotification[]): void {
+    this.notifications$.next(notifications);
   }
 
-  error(title: string, message: string, timeout = 0): void {
-    this._subject.next(new Notifications(this._idx++, NotificationType.error, title, message, timeout));
+  public error(message: string, title: string = 'Error'): void {
+    const notification = {
+      title, text: message, level: 'error',
+      options: { timeout: 10 }
+    };
+    const n = new MyNotification(notification);
+    this.addNotification(n);
+  }
+
+  public warning(message: string, title: string = 'Warning'): void {
+    const notification = {
+      title, text: message, level: 'warning',
+      options: { timeout: 10 }
+    };
+    const n = new MyNotification(notification);
+    this.addNotification(n);
+
+  }
+
+  public success(message: string, title: string = 'Success'): void {
+    const notification = {
+      title, text: message, level: 'success',
+      options: { timeout: 10 }
+    };
+    const n = new MyNotification(notification);
+    this.addNotification(n);
+
   }
 
 }

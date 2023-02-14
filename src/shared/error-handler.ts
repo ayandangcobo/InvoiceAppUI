@@ -1,12 +1,12 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorHandler, Injectable, NgZone } from '@angular/core';
-import { NotificationService } from './notifications/notification.service';
+import { NotificationsService } from './notifications/notification.service';
 import { SpinnerService } from './spinner/spinner.service';
 
 @Injectable()
 export class CustomErrorHandler implements ErrorHandler {
 
-    constructor(private ngZone: NgZone, private toastrService: NotificationService,
+    constructor(private ngZone: NgZone, private notificationService: NotificationsService,
                 private spinnerService: SpinnerService
         ) {
     }
@@ -19,15 +19,20 @@ export class CustomErrorHandler implements ErrorHandler {
 
                 // Set message based on error
                 if (error instanceof HttpErrorResponse) {
-                    this.toastrService.error(error.error, 'Error');
+                    this.notificationService.error(error.error);
+                    console.log(error.error);
                 } else if (error instanceof TypeError) {
-                    this.toastrService.error(error.message, 'Error');
+                    this.notificationService.error(error.message);
+                    console.log(error.message);
                 } else if (error instanceof Error) {
-                    this.toastrService.error(error.message, 'Error');
+                    this.notificationService.error(error.message);
+                    console.log(error.message);
                 } else if (error instanceof Response) {
-                    this.toastrService.error(error.statusText, 'Error');
+                    this.notificationService.error(error.statusText);
+                    console.log(error.statusText);
                 } else {
-                    this.toastrService.error(error, 'Error');
+                    this.notificationService.error(error);
+                    console.log(error);
                 }
 
                 // Hide spinner on error
